@@ -64,8 +64,10 @@ def redraw_frame(data):
     data.ax.set_xlim(data.xrange)
     data.ax.set_ylim(data.yrange)
     data.ax.tick_params(labelsize=14)
-    data.ax.set_xlabel(r'$x \longrightarrow$', fontsize=18)
-    data.ax.set_ylabel(r'$y \longrightarrow$', fontsize=18)
+    #data.ax.set_xlabel(r'$x \longrightarrow$', fontsize=18)
+    #data.ax.set_ylabel(r'$y \longrightarrow$', fontsize=18)
+    data.ax.set_xlabel(rf'$x_{{{data.disp_x+1}}} \longrightarrow$', fontsize=18)
+    data.ax.set_ylabel(rf'$x_{{{data.disp_y+1}}} \longrightarrow$', fontsize=18)
     data.ax.grid(c='gainsboro', ls='--', zorder=9)
 
 
@@ -89,17 +91,15 @@ def keyin(event, data):
     ptr = data.param_ptr
     dim = len(data.fun)
     if event.key == '+':
-        data.disp_x += 1
-        if data.disp_x >= dim:
-            data.disp_x = 0
-        data.disp_y = data.disp_x + 1
-        if data.disp_y >= dim:
-            data.disp_y = 0
+        data.disp_x = (data.disp_x + 1) % dim
+        data.disp_y = (data.disp_x + 1) % dim
+        plt.cla()
+        redraw_frame(data)
     elif event.key == '-':
-        data.disp_x -= 1
-        if data.disp_x < 0 :
-            data.disp_x = dim - 1
-        data.disp_y -= 1
+        data.disp_x = (data.disp_x - 1) % dim
+        data.disp_y = (data.disp_x + 1) % dim
+        plt.cla()
+        redraw_frame(data)
     elif event.key == 'q':
         plt.close('all') 
         print("quit")    
