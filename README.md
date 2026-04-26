@@ -29,8 +29,7 @@ In your own script, you can import `pptools` by declaring
 
 ## pp_na --- for non-autonomous systems
 
-<img align="center" src="https://user-images.githubusercontent.com/52724526/81895796-11b43800-95ee-11ea-90df-2ef3d052b454.png" width = "300px" >
-
+![Duffing](figs/duffing.png)
 
 Display a phase portrait of the given nonautonomous ODE. 
 
@@ -76,7 +75,7 @@ in the graph.
 
 ## pp_a.py --- for autonomous systems
 
-<img src="https://user-images.githubusercontent.com/52724526/85917890-02850300-b899-11ea-9cb4-6fed6b96509a.png" width=300px align="center">
+![EBVP](figs/ebvp.png)
 
 Display a phase portrait of the given autonomous ODE. 
 
