@@ -29,7 +29,7 @@ In your own script, you can import `pptools` by declaring
 
 ## pp_na --- for non-autonomous systems
 
-![Duffing](figs/duffing.png)
+<img src="figs/duffing.png" width="300">
 
 Display a phase portrait of the given nonautonomous ODE. 
 
