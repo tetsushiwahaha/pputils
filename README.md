@@ -39,12 +39,12 @@ Display a phase portrait of the given nonautonomous ODE.
 
 ### To exec
 
-    % python pp.py duffing.json
+    % python pp_na.py duffing.json
 
 ### Setup file configuration
 
 * `fun`: a list of the right hand side of the ODE.
-* `x0`:	a list of initial values
+* `x0`:	an initial value vector
 * `params`:	a list of parameter values
 * `dparams`: a list of incremental values corresponding to the parameters
 * `xrange`, yrange: $x$ and $y$ ranges of the graph
@@ -75,7 +75,7 @@ in the graph.
 
 ## pp_a.py --- for autonomous systems
 
-![EBVP](figs/ebvp.png)
+<img src="figs/ebvp.png" width="300">
 
 Display a phase portrait of the given autonomous ODE. 
 
@@ -94,7 +94,7 @@ or, if you could add an excutable permission to `pp.py`,
 ### Setup file configuration
 
 * `fun`: a definition of the right hand of the ODE.
-* `x0`:	a list of initial values
+* `x0`:	an initial value vector
 * `params`:	a list of parameter values
 * `dparams`: a list of incremental values corresponding to the parameters
 * `tick`: a time step for drawing a curve
@@ -119,4 +119,51 @@ in the graph.
 - `space` or `e`: clear transitions
 - `+`, `-`: change the coordinate system, $(x, y) \rightarrow (y, z) \rightarrow (z, x)$, toggle.
 - `q`: quit
+
+## pp_map --- for discrete maps
+
+<img src="figs/quadmap.png" width="300">
+
+Display a phase portrait of the given discrete map. 
+
+### Files
+
+* pp_map.py: a visualizer
+* quadmap.json: a sample setup file for a quadratic map
+
+### To exec
+
+    % python pp_map quadmap.json
+
+### Setup file configuration
+
+* `fun`: a list of the right hand side of the discrete map
+* `x0`:	an initial value vector
+* `params`:	a list of parameter values
+* `dparams`: a list of incremental values corresponding to the parameters
+* `xrange`, yrange: $x$ and $y$ ranges of the graph
+* `tick`: a time step for drawing a curve
+* `alpha`:  transparency value, zero to one
+* `break`: a number for non-interruptible iterations 
+
+### variables and parameters in fun()
+
+* `x[0]`, `x[1]`, ...: state variables
+* `p[0]`, `p[1]`, ...: parameters 
+
+### How to use
+#### mouse operation 
+
+- A new initial values is given by clicking on the appropriate location
+in the graph.
+ 
+#### key operation
+
+- `s`: print the current status
+- `f`: show/hide trajectory (toggle)
+- `w`: print the dictionary and dump it to `__ppout__.json` and taking a snapshot into `snapshot*.pdf` 
+- `p`: change the active parameter index (default: 0, toggle)
+- up and down arrows: increase/decrease the active parameter value
+- `space` or `e`: clear transitions
+- `q`: quit 
 

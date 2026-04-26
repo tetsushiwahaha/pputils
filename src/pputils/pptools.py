@@ -22,6 +22,7 @@ class DataStruct():
         self.fun = self.dic['fun']
         self.p_terminal = True
         self.p_direction = 1
+        self.t_period = None
         self.param_ptr = 0
         self.ax =None
         self.fig =None
@@ -64,8 +65,6 @@ def redraw_frame(data):
     data.ax.set_xlim(data.xrange)
     data.ax.set_ylim(data.yrange)
     data.ax.tick_params(labelsize=14)
-    #data.ax.set_xlabel(r'$x \longrightarrow$', fontsize=18)
-    #data.ax.set_ylabel(r'$y \longrightarrow$', fontsize=18)
     data.ax.set_xlabel(rf'$x_{{{data.disp_x+1}}} \longrightarrow$', fontsize=18)
     data.ax.set_ylabel(rf'$x_{{{data.disp_y+1}}} \longrightarrow$', fontsize=18)
     data.ax.grid(c='gainsboro', ls='--', zorder=9)
@@ -106,7 +105,6 @@ def keyin(event, data):
         sys.exit()
     elif event.key == 'w':
         jd = json.dumps(data.dic, cls = jsonconvert)
-        #print(jd)
         with open("__ppout__.json", 'w') as fd:
             json.dump(data.dic, fd, indent=4, cls = jsonconvert)
         print("now writing...", end="")
@@ -123,11 +121,14 @@ def keyin(event, data):
         redraw_frame(data)
         data.visible_orbit = not data.visible_orbit
     elif event.key == 's':
-        if data.x0 is not None:
-            out = {"params": data.params, "x0": data.p_x0, 
-                "t_period": data.t_period}
-        else:
-            out = {"params": data.params, "x0": data.p_x0}
+        #if data.x0 is not None:
+        #    out = {"params": data.params, "x0": data.p_x0, 
+        #        "t_period": data.t_period}
+        #else:
+        #    out = {"params": data.params, "x0": data.p_x0}
+        out = {"params": data.params, "x0": data.p_x0 }
+        if getattr(data, "t_period", None) is not None:
+            out["t_period"] = data.t_period
         print(json.dumps(out, cls=jsonconvert))
     elif event.key == 'p':
         data.param_ptr += 1

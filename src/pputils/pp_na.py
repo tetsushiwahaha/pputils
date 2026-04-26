@@ -25,7 +25,7 @@ def main():
         if data.fd_file is not None:
             pptools.dump_data(time, sol, data)
 
-        sol0 = data.x0 = sol.y[:, -1] 
+        data.x0 = data.p_x0 = sol.y[:, -1] 
 
         time += sol.t[-1]
 
