@@ -1,14 +1,24 @@
-# `pputils` --- an ODE simulator utility
+# `pputils` --- a simulator for dynamical systems
 
 ## Overview
-For numerical simulation of an $n$-dimensional ordinary differential equation (ODE),this simulator allows: 
-* no time limit integration
+This repository gives a visual simulation tool for
+an ordinary differential equation (ODE),  
+or a difference equation in any dimension.
+This simulator allows: 
+* no time limit computation
 * real-time parameter change
 * attemping various initial values by clicking a pointer
 * taking a snapshot anytime
 * reporting current state, parameter values, period information
 
-This repository contains two types of simulators: `pp_na.py` for a non-autonomous system, and `pp_a.py` for an automonous system. The settings are decribed in a JSON file. The ODE can be written in this setting file, that is, you can share a sigle `pp*.py` with various setting file s with different ODEs.
+This repository contains three types of simulators: `pp_na.py` for a
+non-autonomous ODE, and `pp_a.py` for an automonous ODE, and `pp_map`
+for a defference equation. The settings are decribed in a JSON file. 
+
+The equation of the dynamical system 
+can be written in this setting file, that is, 
+you can share a sigle `pp*.py` with various setting 
+files with different equations.
 
 ## Requirements
 * python 3.8 later
@@ -17,14 +27,17 @@ This repository contains two types of simulators: `pp_na.py` for a non-autonomou
 
 ## How to install
 
-In the top of repository, do
+You should change current directory to an appropriate directory, and do
+    % git clone https://github.com/tetsushiwahaha/pputils.git
+    % cd pputils
+	% python -m pip install -e .
 
-	% pip3 install -e .
-
-In your own script, you can import `pptools` by declaring
-
+With this installation, you can use this utility at any location 
+by a declaration:
 `from pputils import pptools`
 
+There are three sample simulators in for non-autonomous ODE `pp_na`, 
+autonomous ODE `pp_a`, and discrete map `pp_map`.
 
 
 ## pp_na --- for non-autonomous systems

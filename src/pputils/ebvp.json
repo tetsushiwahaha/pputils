@@ -19,5 +19,5 @@
 
 "chunk": 20,
 "tick":	0.1,
-"dump_data": true 
+"dump_data": false
 }
