@@ -28,6 +28,7 @@ different dynamical system.
 ## How to install
 
 You should change current directory to an appropriate directory, and do
+
     % git clone https://github.com/tetsushiwahaha/pputils.git
     % cd pputils
 	% python -m pip install -e .
@@ -68,6 +69,11 @@ Display a phase portrait of the given nonautonomous ODE.
 
 * `x[0]`, `x[1]`, ...: state variables
 * `p[0]`, `p[1]`, ...: parameters 
+
+For example, the left hand side is written as:
+
+    "fun": [ "x[1]", 
+        "-p[0]*x[1] - x[0]**3 + p[1] + p[2]*np.cos(t)" ],
 
 ### How to use
 #### mouse operation 
