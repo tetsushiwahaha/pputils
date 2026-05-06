@@ -21,17 +21,16 @@ you do not need to edit `pp*.py` every time you test a
 different dynamical system.
 
 ## Requirements
-* python 3.8 later
-* numpy, scipy
-* matplotlib
+* Python 3.8 later
+* Numpy, Scipy
+* Matplotlib
 
 ## How to install
-
 You should change current directory to an appropriate directory, and do
 
-    % git clone https://github.com/tetsushiwahaha/pputils.git
-    % cd pputils
-	% python -m pip install -e .
+    git clone https://github.com/tetsushiwahaha/pputils.git
+    cd pputils
+	python -m pip install -e .
 
 After this installation, you can use `pp*.py` at any location 
 by a declaration:
@@ -39,6 +38,7 @@ by a declaration:
 
 There are three sample simulators in for non-autonomous ODE `pp_na`, 
 autonomous ODE `pp_a`, and discrete map `pp_map`.
+They are stored in `src/pputils/`.
 
 
 ## pp_na --- for non-autonomous systems
@@ -72,8 +72,15 @@ Display a phase portrait of the given nonautonomous ODE.
 
 For example, the left hand side is written as:
 
-    "fun": [ "x[1]", 
-        "-p[0]*x[1] - x[0]**3 + p[1] + p[2]*np.cos(t)" ],
+    "fun": [ 
+        "x[1]", 
+        "-p[0]*x[1] - x[0]**3 + p[1] + p[2]*np.cos(t)" 
+        ],
+
+this describes the Duffing equation:
+\[
+\frac{dx}{dt} = y, \frac{dy}{dt} = -k y - x^3 + B_0 + B \cos t
+\]
 
 ### How to use
 #### mouse operation 
