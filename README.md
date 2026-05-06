@@ -12,13 +12,13 @@ This simulator allows:
 * reporting current state, parameter values, period information
 
 This repository contains three types of simulators: `pp_na.py` for a
-non-autonomous ODE, and `pp_a.py` for an automonous ODE, and `pp_map`
+non-autonomous ODE, `pp_a.py` for an automonous ODE, and `pp_map.py`
 for a defference equation. The settings are decribed in a JSON file. 
 
-The equation of the dynamical system 
+The left hand side of the equation 
 can be written in this setting file, that is, 
-you can share a sigle `pp*.py` with various setting 
-files with different equations.
+you do not need to edit `pp*.py` every time you test a  
+different dynamical system.
 
 ## Requirements
 * python 3.8 later
@@ -32,7 +32,7 @@ You should change current directory to an appropriate directory, and do
     % cd pputils
 	% python -m pip install -e .
 
-With this installation, you can use this utility at any location 
+After this installation, you can use `pp*.py` at any location 
 by a declaration:
 `from pputils import pptools`
 
