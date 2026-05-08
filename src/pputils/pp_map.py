@@ -2,15 +2,20 @@
 import sys, json
 import numpy as np
 import matplotlib.pyplot as plt
-
 from pputils import pptools
 
 def main():
     data = pptools.init()
-    x = np.array(data.x0, dtype=float)
+    x = np.array(data.x0)
+    old_x0 = data.x0[:]
     buffer = []
     cnt = 0
     while True:
+        if old_x0 != data.x0:
+            x = np.array(data.x0)
+            old_x0 = data.x0[:]
+            buffer.clear()
+            cnt = 0
         x = np.array(pptools.fun(0, x, data))
         buffer.append(x.copy())
         cnt += 1
@@ -26,4 +31,4 @@ def main():
                 sys.exit()
 
 if __name__ == '__main__':
-	main()
+    main()
