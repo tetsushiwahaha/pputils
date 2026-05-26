@@ -12,6 +12,13 @@ class DataStruct():
         parser = argparse.ArgumentParser()
         parser.add_argument("jsonfile")
         args = parser.parse_args()
+        self.p_direction = 1
+        self.param_ptr = 0
+        self.t_period = None
+        self.ax =None
+        self.fig =None
+        self.disp_x, self.disp_y = 0, 1
+        self.now_xy = [0.0, 0.0]
         if not Path(args.jsonfile).is_file():
             parser.error(f"file not found: {args.jsonfile}")
         with open(args.jsonfile, 'r', encoding='utf-8') as fd:
@@ -20,16 +27,8 @@ class DataStruct():
         self.params = self.dic['params']
         self.dparams = self.dic['dparams']
         self.fun = self.dic['fun']
-        self.p_terminal = True
-        self.p_direction = 1
-        self.t_period = None
-        self.param_ptr = 0
-        self.ax =None
-        self.fig =None
         self.xrange = self.dic.get('xrange', [-1, 1])
         self.yrange = self.dic.get('yrange', [-1, 1])
-        self.disp_x, self.disp_y = 0, 1
-        self.now_xy = [0.0, 0.0]
         self.alpha = self.dic.get('alpha', 1.0)
         self.chunk = self.dic.get('chunk', 2.0)
         self.n_period = self.dic.get('n_period', 1)
@@ -131,22 +130,46 @@ def keyin(event, data):
             out["t_period"] = data.t_period
         print(json.dumps(out, cls=jsonconvert))
     elif event.key == 'p':
-        data.param_ptr += 1
-        if data.param_ptr >= len(data.params):
-            data.param_ptr = 0
-        print(f"changable parameter: {data.param_ptr}")
+        if isinstance(data.params, dict):
+            keys = list(data.params.keys())
+            data.param_ptr += 1
+            if data.param_ptr >= len(keys):
+                data.param_ptr = 0
+            print(f"changable parameter: {keys[data.param_ptr]}")
+        else:
+            data.param_ptr += 1
+            if data.param_ptr >= len(data.params):
+                data.param_ptr = 0
+            print(f"changable parameter: {data.param_ptr}")
     elif event.key == 'P':
-        data.param_ptr -= 1
-        if data.param_ptr < 0:
-            data.param_ptr = len(data.params)-1
-        print(f"changable parameter: {data.param_ptr}")
+        if isinstance(data.params, dict):
+            keys = list(data.params.keys())
+            data.param_ptr -= 1
+            if data.param_ptr < 0:
+                data.param_ptr = len(keys)-1
+            print(f"changable parameter: {keys[data.param_ptr]}")
+        else:
+            data.param_ptr -= 1
+            if data.param_ptr < 0:
+                data.param_ptr = len(data.params)-1
+            print(f"changable parameter: {data.param_ptr}")
     elif event.key == 'up':
-        ptr = data.param_ptr
-        data.params[ptr] += data.dparams[ptr] 
+        if isinstance(data.params, dict):
+            keys = list(data.params.keys())
+            k = keys[data.param_ptr]
+            data.params[k] += data.dparams[k]
+        else:
+            ptr = data.param_ptr
+            data.params[ptr] += data.dparams[ptr]
         show_param(data)
     elif event.key == 'down':
-        ptr = data.param_ptr
-        data.params[ptr] -= data.dparams[ptr] 
+        if isinstance(data.params, dict):
+            keys = list(data.params.keys())
+            k = keys[data.param_ptr]
+            data.params[k] -= data.dparams[k]
+        else:
+            ptr = data.param_ptr
+            data.params[ptr] -= data.dparams[ptr]
         show_param(data)
     return
 
@@ -182,7 +205,7 @@ def on_click(event, data):
     redraw_frame(data)
     data.now_xy[:] = s0
     x0 = data.x0 = s0[:]
-    data.p_terminal = True
+    on_p_sec.terminal = True
     out = {"params": data.params, "x0": x0}
     print(json.dumps(out))
     data.t_period = 0.0
@@ -196,11 +219,17 @@ def dump_data(time, state, data):
         data.fd_file.write("\n")
 
 def fun(t, x, data):
-    p = data.params
-    v = []
-    for i in np.arange(len(data.fun)):
-        v.append(eval(data.fun[i]))
-    return v
+    env = { "np": np, "x": x, "t": t }
+    if isinstance(data.params, dict):
+        env.update(data.params)
+    else:
+        env["p"] = data.params
+    out = []
+    for expr in data.fun:
+        out.append(eval(expr, {}, env))
+    return np.array(out)
 
 def on_p_sec(t, x, data):
     return x[data.p_index] - data.p_location
+
+

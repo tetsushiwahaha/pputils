@@ -1,23 +1,20 @@
-{
-"_comment": "extended BVP equation",
+{   "_comment": "extended BVP equation",
 
-"fun": [ 
-	"-x[2] + p[0]*x[0] + np.tanh(p[1]*x[0])",
-       "x[2] - p[2] * x[1]",
-       "x[0] - x[1]"
-    ],
+    "fun": [ "-x[2] + A*x[0] + np.tanh(gamma*x[0])",
+           "x[2] - delta * x[1]",
+           "x[0] - x[1]" ],
 
-"xrange": [ -10, 10], "yrange": [ -10, 10],
-"alpha": 0.15,
+    "x0":	[ 1, 0.3, 1],
+    "params":   { "A": 1.0,  "gamma": 1.0,  "delta": 1.2  }, 
+    "dparams":  { "A": 0.01, "gamma": 0.01, "delta": 0.01 },
 
-"x0":	[ 5.029978296272915, 2.0577719634937726, 2.9],
-"params":	[1.0, 1.0, 1.2],
-"dparams":	[0.01, 0.01, 0.01],
+    "p_index": 0,
+    "p_location": 1.0,
 
-"p_index": 0,
-"p_location": 1.0,
+    "xrange": [ -10, 10], "yrange": [ -10, 10],
+    "alpha": 0.15,
 
-"chunk": 20,
-"tick":	0.1,
-"dump_data": false
+    "chunk": 20,
+    "tick":	0.1,
+    "dump_data": false
 }

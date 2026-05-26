@@ -4,6 +4,7 @@ from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 from pputils import pptools
 
+# @public
 def main():
     data = pptools.init()
     time = 0.0

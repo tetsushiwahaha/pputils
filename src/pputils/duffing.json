@@ -1,15 +1,14 @@
-{
-"_comment": "Duffing Equation",
+{    "_comment": "Duffing Equation",
 
-"fun": [ "x[1]", 
-    "-p[0]*x[1] - x[0]**3 + p[1] + p[2]*np.cos(t)" ],
+    "fun": [ "x[1]", "-k*x[1] - x[0]**3 + B0 + B*np.cos(t)" ],
 
-"x0": [-0.38, 0.08],
-"params": [0.2, 0.07, 0.3], "dparams":	[0.01, 0.01, 0.01],
+    "x0": [-0.38, 0.08],
+    "params":   {"k": 0.2, "B0": 0.07, "B": 0.3}, 
+    "dparams":  {"k": 0.01, "B0": 0.01, "B": 0.01},
 
-"tick": 0.01,
-"dump_data": false,
+    "tick": 0.01,
+    "dump_data": false,
 
-"xrange": [-1.5, 1.5], "yrange": [-1.5, 1.5],
-"alpha": 0.2
+    "xrange": [-1.5, 1.5], "yrange": [-1.5, 1.5],
+    "alpha": 0.2
 }
